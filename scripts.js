@@ -322,6 +322,10 @@ var main = (function(){
 
     _createSegmentDom();
 
+    window.addEventListener('touchstart', _onBodyMouseDown, false);
+    window.addEventListener('touchmove', _onBodyMouseMove, false);
+    window.addEventListener('touchend', _onBodyMouseUp, false);
+
     window.addEventListener('mousedown', _onBodyMouseDown, false);
     window.addEventListener('mousemove', _onBodyMouseMove, false);
     window.addEventListener('mouseup', _onBodyMouseUp, false);
