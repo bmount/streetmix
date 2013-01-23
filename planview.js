@@ -12,9 +12,11 @@ function planview () {
                   })
                 })
 
-  var cont = d3.select("body").append("div").attr("id", "planview")
+  var cont = d3.select("body").append("div").attr("id", "planview");
 
-  var svg = cont.append("svg")
+  
+
+  var svg = cont.append("svg");
 
   function r8 () {
     return Math.floor(Math.random()*255.99).toString() +',';
