@@ -13,7 +13,7 @@ var main = (function(){
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 6,
-      color: 'rgba(240, 240, 210)'
+      color: 'rgba(240, 240, 210, .9)'
     },
     "planting-strip": {
       name: 'Planting strip',
