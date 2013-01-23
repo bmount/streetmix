@@ -8,56 +8,68 @@ var main = (function(){
     "sidewalk": {
       name: 'Sidewalk',
       defaultWidth: 6,
+      color: 'rgba(210, 210, 210, 1)',
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 6,
+      color: 'rgba(240, 240, 210)'
     },
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
+      color: 'rgba(70, 140, 70, .8)'
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
       subname: 'Inbound',
       defaultWidth: 6,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "bike-lane-outbound": {
       name: 'Bike lane',
       subname: 'Outbound',
       defaultWidth: 6,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "parking-lane": {
       name: 'Parking lane',
       defaultWidth: 8,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "drive-lane-outbound": {
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "bus-lane-inbound": {
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "bus-lane-outbound": {
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
+      color: 'rgba(75, 71, 72, .9)'
     },
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
+      color: 'rgba(70, 120, 70, .8)'
     },
   };
 
@@ -132,7 +144,10 @@ var main = (function(){
     } else {
       el.innerHTML = 
           '<span class="name">' + SEGMENT_TYPES[type].name + '</span>' +
-          '<span class="width">' + (width / 12) + '\'</span>';
+          '<span class="width">' + (width / 12).toFixed(1) + '\'</span>';
+      el.dataset.name = SEGMENT_TYPES[type].name;
+      el.dataset.width = (width / 12) * .3048;
+      el.dataset.color = SEGMENT_TYPES[type].color
     }
     return el;
   }

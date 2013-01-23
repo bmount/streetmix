@@ -6,15 +6,15 @@ function planview () {
       height = 500;
 
   segments.each(function (t) { dbg=this; features.push({
-                      name: this.innerText,
-                      left: this.offsetLeft,
-                      width: this.clientWidth
+                    name: this.dataset.name,
+                    left: this.offsetLeft,
+                    width: this.clientWidth,
+                    color: this.dataset.color,
+                    rulerWidth: this.dataset.width
                   })
                 })
 
   var cont = d3.select("body").append("div").attr("id", "planview");
-
-  
 
   var svg = cont.append("svg");
 
@@ -32,7 +32,7 @@ function planview () {
     .attr("y", 0)
     .attr("height", height)
     .attr("width", function (d) { return d.width; })
-    .attr("fill", function (d) { return 'rgba(' + r8() + r8() + r8() + '.6)'; })
+    .attr("fill", function (d) { return d.color; })
 }
 
 d3.select("#planview-render").on("click", planview)
