@@ -34,13 +34,24 @@ function planview (restore) {
                   })
                 })
   
-
-
   streetLines = [];
+  
+  var svg = container.append("svg");
 
   features.map(function (e,i,c) { 
     if (e.texture) {
-      c[i].texture = svg.append("pattern").attr("xlink:href", "images/"+e.texture);
+      //c[i].texture = 
+      svg.append("pattern")
+            .attr("id", e.texture) 
+            .attr("patternUnits", "userSpaceOnUse")
+            .attr("width", 100)
+            .attr("height", 100)
+            .append("image")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 100)
+            .attr("height", 100)
+            .attr("xlink:href", "images/"+e.texture+'.png');
     }
     width += e.width;
     if (c[i-1] && c[i+1]) {
@@ -49,8 +60,6 @@ function planview (restore) {
       }
     }
   })
-  
-  var svg = container.append("svg");
 
   var maxwidth = container.node().clientWidth,
       maxheight = container.node().clientHeight;
@@ -68,7 +77,7 @@ function planview (restore) {
     .attr("y", 0)
     .attr("height", height)
     .attr("width", function (d) { return d.width; })
-    .attr("fill", function (d) { return d.texture? "green": d.color; })
+    .attr("fill", function (d) { return d.texture? "url(#"+d.texture+")": d.color; })
  
   paintedLines = d3.svg.line()
 

@@ -9,67 +9,79 @@ var main = (function(){
       name: 'Sidewalk',
       defaultWidth: 6,
       color: 'rgba(210, 210, 210, 1)',
+      texture: "texture_sidewalk"
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 6,
-      color: 'rgba(240, 240, 210, .9)'
+      color: 'rgba(240, 240, 210, .9)',
+      texture: "texture_sidewalk"
     },
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
-      color: 'rgba(70, 140, 70, .8)'
+      color: 'rgba(70, 140, 70, .8)',
+      texture: "texture_grass"
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
       subname: 'Inbound',
       defaultWidth: 6,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "bike-lane-outbound": {
       name: 'Bike lane',
       subname: 'Outbound',
       defaultWidth: 6,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "parking-lane": {
       name: 'Parking lane',
       defaultWidth: 8,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "drive-lane-outbound": {
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "bus-lane-inbound": {
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "bus-lane-outbound": {
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
-      color: 'rgba(75, 71, 72, .9)'
+      color: 'rgba(75, 71, 72, .9)',
+      texture: "texture_asphalt"
     },
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
-      color: 'rgba(70, 120, 70, .8)'
+      color: 'rgba(70, 120, 70, .8)',
+      texture: "texture_grass"
     },
   };
 
@@ -148,6 +160,7 @@ var main = (function(){
       el.dataset.name = SEGMENT_TYPES[type].name;
       el.dataset.width = (width / 12) * .3048;
       el.dataset.color = SEGMENT_TYPES[type].color
+      el.dataset.texture = SEGMENT_TYPES[type].texture
     }
     return el;
   }
