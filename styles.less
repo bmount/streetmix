@@ -402,15 +402,27 @@ header {
   z-index: 10000;
 }
 
-#planview {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
 .planview svg {
   position: absolute;
   margin: 0 auto;
+}
+
+.planview {
+  position: absolute;
+
+  display: block;
+
+  left: 50%;
+  margin-left: -@canvasWidth / 2;
+
+  top: 58%; /* 50% */
+  margin-top: -@canvasHeight / 2 - 20;
+
+  width: @canvasWidth;
+  height: @canvasHeight + 40;
+
+  overflow: hidden;
+  z-index: 9;
 }
 
 button#planview-toggle {
