@@ -114,8 +114,11 @@ var main = (function(){
     elY: null,
     originalEl: null,
     originalWidth: null,
-    originalDraggedOut: false
+    originalDraggedOut: false,
+    planview: false
   };
+
+  main.draggingStatus = draggingStatus;
 
   var WIDTH_RESIZE_DELAY = 100;
 
@@ -183,6 +186,7 @@ var main = (function(){
   }
 
   function _onBodyMouseDown(event) {
+    if (draggingStatus.planview) return;
     var el = event.target;
     if (!el.classList.contains('segment')) {
       return;
@@ -242,6 +246,7 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
+    if (draggingStatus.planview) return;
     if (draggingStatus.active) {
       var deltaX = event.pageX - draggingStatus.mouseX;
       var deltaY = event.pageY - draggingStatus.mouseY;
@@ -258,6 +263,7 @@ var main = (function(){
   }
 
   function _onBodyMouseUp(event) {
+    if (draggingStatus.planview) return;
     if (!draggingStatus.active) {
       return;
     }

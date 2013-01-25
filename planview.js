@@ -1,30 +1,41 @@
 
 function planview (restore) {
   if (restore) { 
-    d3.selectAll("section")
-      .style("visibility", "visible");
-    d3.selectAll(".planview").remove();
+    d3.select("#street-section-canvas")
+      .transition().duration(1000)
+      .style("top", "50%")
+    d3.selectAll(".nonplan").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".planview")
+      .transition().duration(1000)
+      .style("opacity", 0);
+    if (main && main.draggingStatus.planview) main.draggingStatus.planview = false;
     return;
   }
-  d3.selectAll("section")
-    .style("visibility", "hidden")
+  
+  d3.selectAll(".planview").remove();
+  
+  main.draggingStatus.planview = true;
+  
+  d3.selectAll(".nonplan").transition().duration(1000).style("opacity", 0);
 
-  container = d3.select("body")
+  var streetCanvas = d3.select("#street-section-canvas");
+  
+  streetCanvas.transition().duration(1000).style("top", "-5%");
+
+  var container = d3.select("body")
     .append("div")
       .classed("planview", true)
       .style("width", "100%")
       .style("height", "100%")
-      .style("position", "absolute") // some of these don't seem to be
-                                     // applied by the style sheet in
-                                     // time to do the calculation, so explicit
+      .style("position", "absolute") 
 
-  var segments = d3.selectAll("#editable-street-section .segment:not([type=separator])")
-
-  var features = [],
+  var segments = d3.selectAll("#editable-street-section .segment:not([type=separator])"),
+      features = [],
       width = 0,
       height;
 
-  segments.each(function (t) { dbg=this; features.push({
+  segments.each(function () { 
+                  features.push({
                     name: this.dataset.name,
                     left: this.offsetLeft,
                     width: this.clientWidth,
@@ -32,15 +43,16 @@ function planview (restore) {
                     texture: this.dataset.texture || null,
                     rulerWidth: this.dataset.width
                   })
-                })
+                });
   
-  streetLines = [];
+  var streetLines = [];
   
-  var svg = container.append("svg");
+  var svg = container.append("svg")
+        .attr("height", "100%") // firefox svg sizing
+        .attr("width", "100%");
 
   features.map(function (e,i,c) { 
     if (e.texture) {
-      //c[i].texture = 
       svg.append("pattern")
             .attr("id", e.texture) 
             .attr("patternUnits", "userSpaceOnUse")
@@ -66,31 +78,33 @@ function planview (restore) {
 
   height = .7 * maxheight;
 
-  svg.style("top", Math.round(.15 * maxheight));
-  svg.style("left", Math.round((maxwidth - width)/2));
-
-  svg.selectAll("rect")
+  var lanes = svg.selectAll("rect")
     .data(features)
     .enter()
     .append("rect")
     .attr("x", function (d) { return d.left; })
-    .attr("y", 0)
-    .attr("height", height)
+    .attr("y", height)
+    .attr("height", 0)
+    .style("top", "35%")
     .attr("width", function (d) { return d.width; })
     .attr("fill", function (d) { return d.texture? "url(#"+d.texture+")": d.color; })
  
-  paintedLines = d3.svg.line()
+  lanes.transition()
+    .duration(1000).attr("height", height).attr("y", 0)
 
-  dbg=svg.selectAll("line")
+  var paintedLines = svg.selectAll("line")
     .data(streetLines)
     .enter()
     .append("line")
       .attr("x1", function (d) { return d; })
       .attr("x2", function (d) { return d; })
-      .attr("y1", 0)
+      .attr("y1", height)
       .attr("y2", height)
       .attr("stroke-dasharray", "5, 5")
       .attr("stroke", "rgba(200,200,0,.5)")
+
+  paintedLines.transition()
+    .duration(1000).attr("height", height).attr("y1", 0)
 }
 
 var togglePlanView = 1;
@@ -99,6 +113,6 @@ d3.select("#planview-toggle")
   .on("click", function () { 
     planview(++togglePlanView % 2);
     d3.select(this).text(function () {
-      return ["Back", "Plan view"][(togglePlanView % 2)] 
+      return ["Edit", "Plan view"][(togglePlanView % 2)] 
     })
   })
